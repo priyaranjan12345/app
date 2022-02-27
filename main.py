@@ -13,7 +13,7 @@ app.include_router(blogRouter.approute)
 app.include_router(userRouter.approute) #prefix="/user", tags=["User"] we can add this here also
 
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="localhost", port=8000)
 
 
