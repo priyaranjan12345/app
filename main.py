@@ -6,6 +6,10 @@ import uvicorn
 
 app = FastAPI()
 
+@app.get('/')
+def homeView():
+    return 'This is initial page'
+
 models.base.metadata.create_all(database.engine)
 
 app.include_router(authRouter.approute)
