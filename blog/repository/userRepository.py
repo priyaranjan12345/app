@@ -5,12 +5,15 @@ from blog import models, schemas
 from blog.hashing import Hash
 
 def create(user: schemas.User, db: Session):
-    new_user = models.User(name=user.name, email=user.email, password= Hash.dcrypt(user.password))
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    
-    return new_user
+    try:
+        new_user = models.User(name=user.name, email=user.email, password= Hash.dcrypt(user.password))
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+        
+        return new_user
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_NOT_FOUND, detail=f"email id already exist")
 
 def all(db: Session):
     allusers = db.query(models.User).all()

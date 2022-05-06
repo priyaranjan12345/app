@@ -1,3 +1,4 @@
+from multiprocessing.reduction import duplicate
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from blog.database import base
@@ -18,7 +19,7 @@ class User(base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    email = Column(String)
+    email = Column(String, nullable=False, unique=True, index=True)
     password = Column(String)
     
     blogs = relationship('Blog', back_populates='bloger')

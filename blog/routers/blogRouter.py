@@ -15,6 +15,7 @@ def createBlogs(blog: schemas.Blog, db: Session = Depends(get_db)):
 
 @approute.get("/allBlogs")
 def allBlogs(db: Session = Depends(get_db), current_user: schemas.User = Depends(oAuth2.get_current_user)):
+    
     return blogRepository.all(db)
 
 @approute.get("/{id}", status_code= status.HTTP_200_OK, response_model= schemas.ShowBlogs)

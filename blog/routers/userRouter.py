@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from blog import schemas
 from blog.repository import userRepository
+from blog import schemas, oAuth2
 
 approute = APIRouter(
     prefix='/user',
@@ -25,3 +26,7 @@ def showUserBlogs(id:int, db: Session = Depends(get_db)):
        
     return userRepository.showUserBlogs(id, db)
 
+@approute.get("/currentUser", status_code= status.HTTP_200_OK)
+def showUserBlogs(current_user: schemas.User = Depends(oAuth2.get_current_user)):
+    
+    return {'email': current_user.email}

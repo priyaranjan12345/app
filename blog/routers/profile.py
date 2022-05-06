@@ -27,7 +27,19 @@ async def uploadFiles(files: List[UploadFile] = File(...)):
 def getAllFiles():
     return FileResponse(path='files/one.png', filename='one.png', media_type='application/octet-stream')
 
-@approute.get('/allFineNames')
+@approute.get('/showImage')
+def getAllFiles():
+    return FileResponse('files/one.png')
+
+@approute.get('/showImageByName')
+def getAllFiles(name: str):
+    return FileResponse(f"files/{name}", media_type='image/png', filename=name)
+
+@approute.get('/showAllImage')
+def getAllFiles():
+    return {'images':[FileResponse('files/one.png', media_type='image/png', filename='one.png'), FileResponse('files/ss.jpg', media_type='image/png', filename='ss.jpg')]}
+
+@approute.get('/allFineNames', responses={200:{'decscrption':'All files names'}})
 def allFilesName():
     txtfiles = []
     for file in glob.glob("files/*.*"):
