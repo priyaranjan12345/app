@@ -27,3 +27,17 @@ def showUserBlogs(id:int, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with {id} not found")
     
     return user
+
+def deleteUser(id:int, db: Session):
+    user = db.query(models.User).filter(models.User.id == id).first()
+    
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with {id} not found")
+    
+    try:
+        db.delete(user) 
+        db.commit()
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"user not deleted")
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

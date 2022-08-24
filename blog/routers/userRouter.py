@@ -30,3 +30,8 @@ def showUserBlogs(id:int, db: Session = Depends(get_db)):
 def showUserBlogs(current_user: schemas.User = Depends(oAuth2.get_current_user)):
     
     return {'email': current_user.email}
+
+@approute.delete("/currentUser/{id}", status_code= status.HTTP_204_NO_CONTENT)
+def deleteUser(id: int, db: Session = Depends(get_db)):
+    
+    return userRepository.deleteUser(id, db)
