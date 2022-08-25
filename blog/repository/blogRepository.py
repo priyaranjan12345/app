@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, status, Response
+from fastapi import HTTPException, status, Response
 from sqlalchemy.orm import Session
 from blog import models, schemas
 
