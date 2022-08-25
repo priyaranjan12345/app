@@ -13,7 +13,7 @@ def create(user: schemas.User, db: Session):
         
         return new_user
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_NOT_FOUND, detail=f"email id already exist")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"email id already exist")
 
 def all(db: Session):
     allusers = db.query(models.User).all()
