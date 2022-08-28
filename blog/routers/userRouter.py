@@ -13,6 +13,8 @@ approute = APIRouter(
 
 @approute.post("/create", status_code = status.HTTP_201_CREATED)
 def createUser(user: schemas.User, db: Session = Depends(get_db)):
+    
+    print("User", user)
    
     return userRepository.create(user, db)
 
@@ -29,7 +31,7 @@ def showUserBlogs(id:int, db: Session = Depends(get_db)):
 @approute.get("/currentUser", status_code= status.HTTP_200_OK)
 def showUserBlogs(current_user: schemas.User = Depends(oAuth2.get_current_user)):
     
-    return {'email': current_user.email}
+    return {'email': current_user.email, "userId": current_user}
 
 @approute.delete("/currentUser/{id}", status_code= status.HTTP_204_NO_CONTENT)
 def deleteUser(id: int, db: Session = Depends(get_db)):

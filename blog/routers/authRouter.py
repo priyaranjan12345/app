@@ -17,7 +17,7 @@ def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(g
     if not Hash.verify(user.password, request.password):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Incorrect password")
 
-    access_token = JWTtoken.create_access_token(data={"sub": user.email})
+    access_token = JWTtoken.create_access_token(data={"sub": user.email, "userId": user.id})
     return {"access_token": access_token, "token_type": "bearer"}
 
 
